@@ -1,0 +1,132 @@
+
+    .pic {
+        width: 260px;
+        height: 250px;
+        border-radius: 50%;
+        border: 5px solid rgb(45, 3, 59);
+        margin-top: 20px;
+        margin: 30px;
+        margin-left: 60px;
+        box-shadow: 4px 4px 15px 15px rgba(193, 71, 233, 0.5);
+    }
+
+    .photos_nmbr {
+        color: rgb(45, 3, 59);
+        position: absolute;
+        margin: -25px 0 0 -50px;
+        left: 95%;
+        top: 25%;
+        float: left;
+        font-size: 25px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    }
+
+    .photos {
+        color: rgb(45, 3, 59);
+        position: absolute;
+        margin: -25px 0 0 -50px;
+        left: 94%;
+        top: 31%;
+        float: left;
+        font-size: 25px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    }
+
+    .likes_nmbr {
+        color: rgb(45, 3, 59);
+        position: absolute;
+        margin: -25px 0 0 -50px;
+        left: 71%;
+        top: 25%;
+        float: left;
+        font-size: 25px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    }
+
+    .likes {
+        color: rgb(45, 3, 59);
+        position: absolute;
+        margin: -25px 0 0 -50px;
+        left: 70%;
+        top: 31%;
+        float: left;
+        font-size: 25px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    }
+
+
+    .followers {
+        color: rgb(45, 3, 59);
+        position: absolute;
+        margin: -25px 0 0 -50px;
+        left: 43%;
+        top: 31%;
+        float: left;
+        font-size: 25px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    }
+
+    .followers_nmbr {
+        color: rgb(45, 3, 59);
+        position: absolute;
+        margin: -25px 0 0 -50px;
+        left: 45%;
+        top: 25%;
+        float: left;
+        font-size: 25px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    }
+
+    .user_name {
+        color: rgb(45, 3, 59);
+        position: absolute;
+        margin: -25px 0 0 -50px;
+        left: 66%;
+        top: 8%;
+        float: left;
+        font-size: 33px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+    }
+
+    .follow {
+
+        position: absolute;
+        margin: -25px 0 0 -50px;
+        left: 40.5%;
+        top: 40%;
+        float: left;
+        background-color: rgb(45, 3, 59);
+        font-size: medium;
+        color: white;
+        height: 37px;
+        width: 750px;
+        border-radius: 75px;
+        transition: 0.15s;
+        cursor: pointer;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+
+    }
+
+    .follow:hover {
+        background-color: white;
+        color: rgb(45, 3, 59);
+    }
+
+    .follow:active {
+        background-color: rgb(45, 3, 59);
+        color: white;
+        transform: translateY(0px);
+
+    }
+
+    body {
+        background-color: rgb(229, 184, 244);
+    }
