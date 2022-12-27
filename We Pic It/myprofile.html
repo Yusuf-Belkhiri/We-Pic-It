@@ -6,12 +6,42 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style_profile.css">
+  <link rel="stylesheet" type="text/css" href="css/app.css" />
+  <link rel="stylesheet" type="text/css" href="css/theme.css" />
+  <link rel="stylesheet" type="text/css" href="css/poststyles.css" />
   <title>My Profile</title>
 
 </head>
 
 <body>
-
+  <header>
+    <!--NavBar-->
+    <nav>
+      <div>
+        <ul>
+          <span>
+            <li><a href="home.html">Home</a></li>
+          </span>
+          <span>
+            <li><a href="intro.html">About</a></li>
+          </span>
+          <span>
+            <li><a href="otherprofile.html">Gallery</a></li>
+          </span>
+        </ul>
+      </div>
+      <div id="second">
+        <span class="zewj">
+          <ul>
+            <li><a href="createpost.html">Post</a></li>
+          </ul>
+        </span>
+        <span class="zewj">
+          <a href="myprofile.html"><button type="button">Profile</button></a>
+        </span>
+      </div>
+    </nav>
+  </header>
 
 
 
@@ -46,13 +76,7 @@
   </div>
 
 
-  <div class="addphoto">
-    <label style="cursor: pointer;" for="inputTag">
-      <img src="images/Add New.png" alt="" class="icon"> <br />
-      <input id="inputTag" type="file" style="display: none;" />
-      <br />
-    </label>
-  </div>
+
 
   <div class="saved">
     <a href="savedposts.html">saved</a>

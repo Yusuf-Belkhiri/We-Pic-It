@@ -18,7 +18,7 @@ body{
   margin-top: 20px;
   margin: 30px;
   margin-left: 60px;
-  box-shadow: 4px 4px 15px 15px rgba(193, 71, 233, 0.5);
+  
 }
 
 .posts{
@@ -28,7 +28,7 @@ font-style: normal;
 font-size: 32px;
 margin-left: 300px;
 margin-top: 80px;
-color: #2D033B;
+color: #fff;
 }
 
 .followers{
@@ -38,7 +38,7 @@ color: #2D033B;
   font-size: 32px;
   margin-left: 600px;
   margin-top: 80px;
-  color: #2D033B;
+  color: #fff;
 }
 
 .followings{
@@ -48,15 +48,15 @@ color: #2D033B;
     font-size: 32px;
     margin-left: 900px;
     margin-top: 80px;
-    color: #2D033B;
+    color: #fff;
   }
 
   .editProfile button{
-    width: 130vh;
+    width: 100vh;
     height: 6vh;
-    background-color: #2D033B;
+    background-color:rgba(193, 71, 233, 0.5); ;
     margin-top: 150px;
-    margin-left: 300px;
+    margin-left: 385px;
     border-radius: 25px;
     text-align: center;
     
@@ -73,6 +73,7 @@ color: #2D033B;
     margin-left: 70px;
     margin-top: 25px;
     position: absolute;
+    color: #fff;
 
   }
 
@@ -98,19 +99,20 @@ color: #2D033B;
   }
  
   .saved{
+    
     font-style: normal;
     font-size: 30px;
     margin-top: 130px;
     margin-left: 1110px;
     position: absolute;
-    border-bottom: 3px solid #2D033B;
+    border-bottom: 3px solid #fff;
     padding-bottom: 5px;
   }
  
   a{
     text-decoration: none;
     text-decoration-line: none;
-    color: #2D033B;
+    color: #fff;
   }
   a #postings{
     text-decoration: none;

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500&display=swap");
 body{
-  background-color: #E5B8F4;
+  background-color: #272133;
 }
 
 
@@ -18,7 +18,7 @@ body{
   margin-top: 20px;
   margin: 30px;
   margin-left: 60px;
-  box-shadow: 4px 4px 15px 15px rgba(193, 71, 233, 0.5);
+  
 }
 
 .posts{
@@ -28,7 +28,7 @@ font-style: normal;
 font-size: 32px;
 margin-left: 300px;
 margin-top: 80px;
-color: #2D033B;
+color: #fff;
 }
 
 .followers{
@@ -38,7 +38,7 @@ color: #2D033B;
   font-size: 32px;
   margin-left: 600px;
   margin-top: 80px;
-  color: #2D033B;
+  color: #fff;
 }
 
 .followings{
@@ -48,15 +48,15 @@ color: #2D033B;
     font-size: 32px;
     margin-left: 900px;
     margin-top: 80px;
-    color: #2D033B;
+    color: #fff;
   }
 
   .editProfile button{
-    width: 130vh;
+    width: 100vh;
     height: 6vh;
-    background-color: #2D033B;
+    background-color: rgba(193, 71, 233, 0.5);;
     margin-top: 150px;
-    margin-left: 300px;
+    margin-left: 385px;
     border-radius: 25px;
     text-align: center;
     
@@ -73,6 +73,7 @@ color: #2D033B;
     margin-left: 70px;
     margin-top: 25px;
     position: absolute;
+    color:#fff;
 
   }
 
@@ -82,7 +83,7 @@ color: #2D033B;
     margin-left: 90px;
     margin-top: 130px;
     position: absolute;
-    border-bottom: 3px solid #2D033B;
+    border-bottom: 3px solid #fff;
     padding-bottom: 5px;
 
   }
@@ -110,7 +111,7 @@ color: #2D033B;
   a{
     text-decoration: none;
     text-decoration-line: none;
-    color: #2D033B;
+    color: #fff;
   }
   a #saved{
     text-decoration: none;
