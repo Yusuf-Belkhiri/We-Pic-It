@@ -223,19 +223,21 @@ async function signIn(email, password){
                             UNION MATCH (n:Admin)
                             WHERE n.emailAdmin ="${email}" AND n.passwordAdmin='${password}'
                             RETURN n.idNode`;
-        await session.executeRead(tx => tx.run(readQuery,{email, password}));
+        const idUser =  await session.executeRead(tx => tx.run(readQuery,{email, password}));
+        return idUser;
     } 
     catch(error){
         console.error(`Query Error: ${error}`);
     } 
 }
 
-async function GetPostsByCategory(nameCat){
+async function getPostsByCategory(nameCat){
     try{
         const readQuery = `match(n:Post) ,(c:Category)
                             where c.nameCat="${nameCat}" and (n)-[:BELONGS_TO]->(c)
                             return n `;
-        await session.executeRead(tx => tx.run(readQuery,{nameCat}));
+        const posts = await session.executeRead(tx => tx.run(readQuery,{nameCat}));
+        return posts;
     } 
     catch(error){
         console.error(`Query Error: ${error}`);
@@ -243,17 +245,63 @@ async function GetPostsByCategory(nameCat){
 }
 
 ///////////////////////////////////////////////////////// USER PROFILE
-async function GetUserInfoById(idUser){
+///////////////////////////// GET
+async function getUserInfoById(idUser){
     try{
-        const readQuery = ` MATCH (a:User {idNode:${idUser}})-[p:POSTED]->(b:Post)
-                            MATCH (a:User -[r:FOLLOW]->(b:User)
-                            RETURN count(p) as numberOfPosts `;
-        await session.executeRead(tx => tx.run(readQuery,{nameCat}));
+        const readQuery1 = ` MATCH (a:User {idNode:${idUser}})-[p:POSTED]->(b:Post)
+                            MATCH ((a)-[f:FOLLOW]->(c:User))
+                            RETURN count(p) as numberOfPosts, count(f) as numberOfFollowings`;
+        const readQuery2 = `MATCH (b:User)-[r:FOLLOW]->(a:User {idNode:${idUser}})
+                            RETURN count(r) as numberOfFollowers` ;
+
+        const userInfo1 = await session.executeRead(tx => tx.run(readQuery1,{idUser}));
+        const userInfo2 = await session.executeRead(tx => tx.run(readQuery2,{idUser}));
+        
+
     } 
     catch(error){
         console.error(`Query Error: ${error}`);
     } 
 }
+
+// relation: SAVED, POSTED
+async function getUserPosts(idUser, relation){
+    if(relation!="SAVED" && relation!="POSTED")
+        return;
+
+    try{
+        const readQuery = ` MATCH (a:User {idNode:${idUser}})-[:${relation}}]->(b:Post) RETURN b  `;
+        const posts = await session.executeRead(tx => tx.run(readQuery,{idUser, relation}));
+        return posts;
+    } 
+    catch(error){
+        console.error(`Query Error: ${error}`);
+    } 
+}
+
+
+///////////////////////////// SET
+async function editProfileInfo(idUser, firstName, lastName, email, password, urlProfilePic){
+    try{
+        const readQuery = `match(n:User{idNode:${idUser}})
+                            set n.firstName ='${firstName}'
+                            set n.lastName ='${lastName}'
+                            set n.email ='${email}'
+                            set n.password ='${password}'
+                            set n.urlProfilePic= '${urlProfilePic}'`;
+        const posts = await session.executeRead(tx => tx.run(readQuery,{idUser, firstName, lastName, email, password, urlProfilePic}));
+        return posts;
+    } 
+    catch(error){
+        console.error(`Query Error: ${error}`);
+    } 
+}
+
+
+
+
+///////////////////////////////////////////////////////// POSTS
+
 
 /** 
 
