@@ -39,32 +39,39 @@
     Sign up
   </h1>
   <div id="form">
+    <p class="sign_up_error_text" hidden>This email already exists</p>
+
     <form>
       <label for="email" class="text">
         Email:
       </label><br>
-      <input type="email" name="etext" class="input"><br>
+      <input id="email_input" type="email" name="etext" class="input"><br>
       <label for="fname" class="text">
         First name:
       </label><br>
-      <input type="text" name="fname" class="input"><br>
+      <input id="firstname_input" type="text" name="fname" class="input"><br>
       <label for="lname" class="text">
         Last name:
       </label><br>
-      <input type="text" name="lname" class="input"><br>
+      <input id="lastname_input" type="text" name="lname" class="input"><br>
       <label for="pw" class="text">
         Password:
       </label><br>
-      <input type="password" name="pw" class="input"><br>
+      <input id="password_input" type="password" name="pw" class="input"><br>
       <label for="cpw" class="text">
         Confirm password:
       </label><br>
-      <input type="password" name="cpw" class="input"><br>
-      <button type="button" class="submit">Sign up</button>
+      <input id="confirm_password_input" type="password" name="cpw" class="input"><br>
+
+      <button type="button" class="sign_up_button">Sign up</button>
+
       <p>already have an account, <a id="Text" href="signin.html">sign in</a></p>
     </form>
 
   </div>
+
+  <script src="https://unpkg.com/neo4j-driver"></script>
+  <script src="./scripts/app.js"></script>
 </body>
 
 </html>
