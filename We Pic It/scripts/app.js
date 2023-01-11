@@ -213,7 +213,7 @@ async function userRemoveCategory(idUser, idCat){
 
 
 
-///////////////////////////////////////////////////////// CREATE NODES
+///////////////////////////////////////////////////////// SIGN IN
 // Returns idUser
 async function signIn(email, password){
     try{
@@ -231,6 +231,8 @@ async function signIn(email, password){
     } 
 }
 
+///////////////////////////////////////////////////////// HOME PAGE
+///////////////////////////// GET
 async function getPostsByCategory(nameCat){
     try{
         const readQuery = `match(n:Post) ,(c:Category)
@@ -246,6 +248,7 @@ async function getPostsByCategory(nameCat){
 
 ///////////////////////////////////////////////////////// USER PROFILE
 ///////////////////////////// GET
+// User Infos: numberOfPosts, numberOfFollowings, numberOfFollowers, (+ userName..)
 async function getUserInfoById(idUser){
     try{
         const readQuery1 = ` MATCH (a:User {idNode:${idUser}})-[p:POSTED]->(b:Post)
@@ -254,6 +257,7 @@ async function getUserInfoById(idUser){
         const readQuery2 = `MATCH (b:User)-[r:FOLLOW]->(a:User {idNode:${idUser}})
                             RETURN count(r) as numberOfFollowers` ;
 
+        // + userName..
         const userInfo1 = await session.executeRead(tx => tx.run(readQuery1,{idUser}));
         const userInfo2 = await session.executeRead(tx => tx.run(readQuery2,{idUser}));
         
@@ -283,13 +287,13 @@ async function getUserPosts(idUser, relation){
 ///////////////////////////// SET
 async function editProfileInfo(idUser, firstName, lastName, email, password, urlProfilePic){
     try{
-        const readQuery = `match(n:User{idNode:${idUser}})
+        const writeQuery = `match(n:User{idNode:${idUser}})
                             set n.firstName ='${firstName}'
                             set n.lastName ='${lastName}'
                             set n.email ='${email}'
                             set n.password ='${password}'
                             set n.urlProfilePic= '${urlProfilePic}'`;
-        const posts = await session.executeRead(tx => tx.run(readQuery,{idUser, firstName, lastName, email, password, urlProfilePic}));
+        const posts = await session.executeWrite(tx => tx.run(writeQuery,{idUser, firstName, lastName, email, password, urlProfilePic}));
         return posts;
     } 
     catch(error){
@@ -300,7 +304,31 @@ async function editProfileInfo(idUser, firstName, lastName, email, password, url
 
 
 
-///////////////////////////////////////////////////////// POSTS
+///////////////////////////////////////////////////////// POSTS             NEEDS TO BE TESTED
+///////////////////////////// GET
+// postTitle, postDescription, postUrlPic, postTags, postUserId, numberOfReactions
+async function getPostInfo(idPost){
+    try{
+        const readQuery = `match(p:Post{idNode:${idPost}}) 
+                            match(p)-[:BELONGS_TO]->(c:Category)  
+                            match(u:User)-[:POSTED]->(p)  
+                            match(ul:User)-[l:LIKED]-> (p) 
+                            match (ud:User)-[d:DISLIKED]->(p)
+                            return p.title as postTitle, p.description as postDescription, p.urlPic as postUrlPic, 
+                            c.nameCat as postTags, u.idNode as postUserId, 
+                            count(distinct l) - Count(distinct d) as numberOfReactions`;
+        
+        // Use postUserId to fetch the poster infos (userName & profilePic)
+        const posts  = await session.executeRead(tx => tx.run(readQuery,{idPost}));
+        return posts;
+    } 
+    catch(error){
+        console.error(`Query Error: ${error}`);
+    }
+}
+
+
+///////////////////////////////////////////////////////// GET USER INFOOOOOOS!!!!!
 
 
 /** 
