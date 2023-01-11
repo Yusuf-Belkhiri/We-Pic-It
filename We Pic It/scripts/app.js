@@ -1,7 +1,14 @@
 //const { types } = require("neo4j-driver-core");
+/**
 const uri = 'neo4j+s://b352712a.databases.neo4j.io:7687';
 const user = 'neo4j';
 const password = 'JFXA93MI0snbcfoqW-deluQhQXHCk7Pg7T3ncIQmjOA';
+ */
+
+const uri = 'bolt://localhost:7687';
+const user = 'neo4j';
+const password = 'wepicit';
+
 const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
 const session = driver.session({ database: 'neo4j' });
 
@@ -53,6 +60,10 @@ async function signUp(){
 
     //window.location.href = "home.html";
     //signUpErrorText.hidden = false;
+
+    const [numberOfPosts, numberOfFollowings, numberOfFollowers] = await Promise.all(getUserInfoById(2));
+    console.log(numberOfPosts);
+    //userPostRelation(2, 2, "POSTED");
 }
 
 
@@ -251,22 +262,35 @@ async function getPostsByCategory(nameCat){
 // User Infos: numberOfPosts, numberOfFollowings, numberOfFollowers, (+ userName..)
 async function getUserInfoById(idUser){
     try{
+        /** 
         const readQuery1 = ` MATCH (a:User {idNode:${idUser}})-[p:POSTED]->(b:Post)
                             MATCH ((a)-[f:FOLLOW]->(c:User))
                             RETURN count(p) as numberOfPosts, count(f) as numberOfFollowings`;
         const readQuery2 = `MATCH (b:User)-[r:FOLLOW]->(a:User {idNode:${idUser}})
                             RETURN count(r) as numberOfFollowers` ;
-
+        */
+        const readQuery = ` MATCH (a:User {idNode:${idUser}})-[r:POSTED]->(b:Post) return count(r) as numberOfRelations 
+                            Union MATCH ((a)-[r:FOLLOW]->(c:User)) RETURN count(r) as numberOfRelations
+                            Union MATCH (b:User)-[r:FOLLOW]->(a:User {idNode:${idUser}}) return count(r) as numberOfRelations`;
         // + userName..
-        const userInfo1 = await session.executeRead(tx => tx.run(readQuery1,{idUser}));
-        const userInfo2 = await session.executeRead(tx => tx.run(readQuery2,{idUser}));
         
+        //const userInfo1 = await session.executeRead(tx => tx.run(readQuery1,{idUser}));
+        //const userInfo2 = await session.executeRead(tx => tx.run(readQuery2,{idUser}));
+        const userInfo = await session.executeRead(tx => tx.run(readQuery,{idUser}));        
+        
+        let userRealInfo = new Array(3);
 
+        for (let i = 0; i < userInfo.records.length; i++){
+            //console.log(userInfo.records[i]._fields[0].low);
+            userRealInfo[i] = userInfo.records[i]._fields[0].low;
+        }
+        return userRealInfo;
     } 
     catch(error){
         console.error(`Query Error: ${error}`);
     } 
 }
+
 
 // relation: SAVED, POSTED
 async function getUserPosts(idUser, relation){
@@ -285,7 +309,7 @@ async function getUserPosts(idUser, relation){
 
 
 ///////////////////////////// SET
-async function editProfileInfo(idUser, firstName, lastName, email, password, urlProfilePic){
+async function editUserInfo(idUser, firstName, lastName, email, password, urlProfilePic){
     try{
         const writeQuery = `match(n:User{idNode:${idUser}})
                             set n.firstName ='${firstName}'
@@ -318,8 +342,11 @@ async function getPostInfo(idPost){
                             c.nameCat as postTags, u.idNode as postUserId, 
                             count(distinct l) - Count(distinct d) as numberOfReactions`;
         
-        // Use postUserId to fetch the poster infos (userName & profilePic)
+
         const posts  = await session.executeRead(tx => tx.run(readQuery,{idPost}));
+
+        // Use postUserId to fetch the poster infos (userName & profilePic)
+        getUserInfoById(posts["postUserId"]);
         return posts;
     } 
     catch(error){
